@@ -1,4 +1,4 @@
---параметрический полиморфизи
+--параметрический полиморфизм
 module Demo2_1 where
   
 import Data.Function
