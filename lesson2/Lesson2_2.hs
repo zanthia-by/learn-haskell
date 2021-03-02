@@ -42,3 +42,57 @@ doItYourself = f . g . h
 f = (2 `logBase` ) 
 g = (^ 3) 
 h = (42 `max`)
+
+----------
+--(True,3) 
+--(,) True 3 -- префиксный стиль
+--(,) конструктор кортежа
+--(,,) True 3 'a'
+
+dup x = (x, x)
+--dup :: t -> (t, t)
+
+----------
+--Каррирование
+--комбинатор on:
+--on :: (b -> b -> c) -> (a -> b) -> a -> a -> c
+--on op f x y = f x `op` f y
+
+--fst - не каррированная, поэтому:
+-- fst `on` (^2) ==> error
+-- curry fst `on` (^2) ==> :type Num c => c -> c -> c
+
+--некаррированная ф-ция
+avg :: (Double, Double) -> Double
+avg p = (fst p + snd p) / 2
+
+-- ф-ции высших порядков обычно требуют каррированые ф-ции:
+-- :type curry avg `on` (^2)  ==>  Double -> Double -> Double
+
+my_curry f x y = f (x, y)
+--my_curry :: ((t1, t2) -> t) -> t1 -> t2 -> t
+
+--curry :: ((a, b) -> c) -> a -> b -> c
+--uncurry :: (a -> b -> c) -> (a, b) -> c
+
+----------
+--Ответы:
+--curry id эквавалентно (,)
+
+--uncurry (flip const) эквивалентно snd
+
+--В модуле Data.Tuple стандартной библиотеки определена функция swap :: (a,b) -> (b,a), переставляющая местами элементы пары:
+--swap (1,'A') ==> ('A',1)
+--Эта функция может быть выражена в виде:
+--swap = f (g h)
+--где f, g и h — некоторые идентификаторы из следующего набора:
+--curry uncurry flip (,) const
+
+swap = f' (g' h')
+f' = uncurry
+g' = flip
+h' = (,)
+
+-- h' :: a -> b -> (a, b)
+-- (g' h') :: b -> a -> (a, b)
+-- f' (g' h') :: (a, b) -> (b, a)
