@@ -1,3 +1,5 @@
+module Demo2_4_2 where
+
 --Пусть существуют два класса типов KnownToGork и KnownToMork, которые предоставляют методы stomp (stab) и doesEnrageGork (doesEnrageMork) соответственно:
 
 class KnownToGork a where

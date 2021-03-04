@@ -1,5 +1,5 @@
 --расширение классов типов (class extension)
-module Demo2_4 where
+module Demo2_4_1 where
   
 import Prelude hiding (Eq, (==), (/=), Ord, compare, (<), (>=), (>), (<=), max, min)
 
